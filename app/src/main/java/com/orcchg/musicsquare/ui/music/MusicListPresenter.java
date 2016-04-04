@@ -1,8 +1,11 @@
 package com.orcchg.musicsquare.ui.music;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 
 import com.orcchg.musicsquare.MusicSquareApplication;
+import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.DataManager;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BasePresenter;
@@ -56,6 +59,19 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
         loadMusicians();  // retry network request
     }
 
+    void onMenuItemAboutClicked() {
+        new AlertDialog.Builder((Activity) getMvpView())
+                .setTitle(R.string.str_about)
+                .setMessage(R.string.str_about_message)
+                .setPositiveButton(R.string.str_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
+
+    // ------------------------------------------
     private void onMusiciansLoaded(List<Musician> musicians) {
         mDataManager.getDatabase().addMusicians(musicians);
         mDataManager.invalidateCache(false);

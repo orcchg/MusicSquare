@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Музыканты</string>
+    <string name="str_ok">Понятно</string>
+    <string name="str_about">Об авторе</string>
+    <string name="str_about_message">Автор: Максим (Orcchg) Алов\nКонтакты: alovmax@yandex.ru\nСайт: orcchg.wordpress.com\nMusicSquare приложение для Яндекса</string>
 
     <string name="empty_data">Нет данных</string>
     <string name="error_text">Ошибка данных</string>

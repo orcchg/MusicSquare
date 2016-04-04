@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -113,5 +114,15 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
     private void initToolbar() {
         mToolbar.setTitle(R.string.str_musicians_list);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        mToolbar.inflateMenu(R.menu.main_menu);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.about) {
+                    mPresenter.onMenuItemAboutClicked();
+                }
+                return false;
+            }
+        });
     }
 }
