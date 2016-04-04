@@ -12,4 +12,5 @@
 
     <dimen name="list_item_height">56dp</dimen>
     <dimen name="list_item_icon_size">40dp</dimen>
+    <dimen name="star_size">24dp</dimen>
 </resources>

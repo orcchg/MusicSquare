@@ -3,4 +3,5 @@
 
     <string name="str_musicians_list">Музыканты</string>
     <string name="str_title_details">Описание</string>
+    <string name="str_coefficient">Оценка</string>
 </resources>

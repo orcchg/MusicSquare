@@ -7,4 +7,6 @@
     <color name="title_color">@android:color/black</color>
     <color name="description_color">#bebebe</color>
     <color name="error_color">@android:color/holo_red_light</color>
+
+    <color name="star_color">#FFEB3B</color>
 </resources>
