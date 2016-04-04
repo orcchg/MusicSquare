@@ -21,6 +21,19 @@
         android:layout_centerInParent="true"
         style="@style/CircularThemeProgressBar"/>
 
+    <TextView
+        android:id="@+id/tv_cover_error"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/cover_error_size"
+        android:layout_centerInParent="true"
+        android:drawableLeft="@drawable/ic_error_outline_white_48dp"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:text="@string/error_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
     <View
         android:id="@+id/top_overlay"
         android:layout_width="match_parent"

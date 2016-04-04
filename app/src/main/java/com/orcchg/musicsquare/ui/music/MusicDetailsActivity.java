@@ -42,6 +42,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
     @Bind(R.id.iv_cover) ImageView mCoverImageView;
+    @Bind(R.id.tv_cover_error) TextView mCoverErrorTextView;
     @Bind(R.id.top_overlay) View mTopOverlayView;
     @Bind(R.id.bottom_overlay) View mBottomOverlayView;
     @Bind(R.id.tv_desription) TextView mDescriptionTextView;
@@ -115,7 +116,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
             .listener(new RequestListener<String, Bitmap>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                    // TODO: handle error
+                    showError();
                     return false;
                 }
 
@@ -213,11 +214,20 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mProgressBar.setVisibility(View.VISIBLE);
         mTopOverlayView.setVisibility(View.INVISIBLE);
         mBottomOverlayView.setVisibility(View.INVISIBLE);
+        mCoverErrorTextView.setVisibility(View.GONE);
     }
 
     private void stopProgressAnimation() {
         mProgressBar.setVisibility(View.GONE);
         mTopOverlayView.setVisibility(View.VISIBLE);
         mBottomOverlayView.setVisibility(View.VISIBLE);
+        mCoverErrorTextView.setVisibility(View.GONE);
+    }
+
+    private void showError() {
+        mProgressBar.setVisibility(View.GONE);
+        mTopOverlayView.setVisibility(View.INVISIBLE);
+        mBottomOverlayView.setVisibility(View.INVISIBLE);
+        mCoverErrorTextView.setVisibility(View.VISIBLE);
     }
 }
