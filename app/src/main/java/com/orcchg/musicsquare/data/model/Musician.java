@@ -14,6 +14,9 @@ import java.util.Map;
  * Model of musician item in the data response.
  */
 public class Musician implements Parcelable {
+    public static final String COVER_BIG = "big";
+    public static final String COVER_SMALL = "small";
+
     @SerializedName("id") private long mId;
     @SerializedName("name") private String mName;
     @SerializedName("genres") private List<String> mGenres;

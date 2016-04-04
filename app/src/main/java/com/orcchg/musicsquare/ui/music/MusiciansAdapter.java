@@ -6,8 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
 
@@ -16,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 /**
  * Adapter for {@link android.support.v7.widget.RecyclerView}
@@ -27,6 +33,8 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
 
     public static class MusiciansViewHolder extends RecyclerView.ViewHolder {
         private View mView;
+        @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
+        @Bind(R.id.iv_musician_icon) ImageView mIconView;
         @Bind(R.id.tv_musician_title) TextView mTitleView;
 
         public MusiciansViewHolder(View view) {
@@ -48,17 +56,35 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
     }
 
     @Override
-    public void onBindViewHolder(MusiciansViewHolder holder, int position) {
+    public void onBindViewHolder(final MusiciansViewHolder holder, int position) {
+        final Context context = holder.mView.getContext();
         final Musician musician = mMusicians.get(position);
-        holder.mTitleView.setText(musician.getName());
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = view.getContext();
                 Intent intent = MusicDetailsActivity.getIntent(context, musician);
                 context.startActivity(intent);
             }
         });
+
+        holder.mTitleView.setText(musician.getName());
+
+        Glide.with(context)
+            .load(musician.getCovers().get(Musician.COVER_SMALL))
+            .listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    holder.mProgressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            })
+            .into(holder.mIconView);
     }
 
     @Override
