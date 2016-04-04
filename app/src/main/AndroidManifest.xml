@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.music.MusicDetailsActivity" />
+        <activity
+            android:name=".ui.music.MusicDetailsActivity"
+            android:theme="@style/DetailsTheme" />
     </application>
 
 </manifest>

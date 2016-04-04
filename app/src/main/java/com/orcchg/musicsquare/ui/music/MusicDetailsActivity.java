@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
 import com.orcchg.musicsquare.util.MusicianUtils;
+import com.orcchg.musicsquare.util.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +37,12 @@ import timber.log.Timber;
 
 public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> implements MusicDetailsMvpView {
 
-    @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout mCollapsingToolbar;
+    CollapsingToolbarLayout mCollapsingToolbar;
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
     @Bind(R.id.iv_cover) ImageView mCoverImageView;
+    @Bind(R.id.top_overlay) View mTopOverlayView;
+    @Bind(R.id.bottom_overlay) View mBottomOverlayView;
     @Bind(R.id.tv_desription) TextView mDescriptionTextView;
     @Bind(R.id.tv_link) TextView mLinkTextView;
     @Bind(R.id.tv_genres) TextView mGenresTextView;
@@ -93,7 +97,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     // --------------------------------------------------------------------------------------------
     @Override
     public void showMusicDetails(@NonNull Musician musician) {
-        mCollapsingToolbar.setTitle(musician.getName());
+        if (mCollapsingToolbar != null) { mCollapsingToolbar.setTitle(musician.getName()); }
         mToolbar.setTitle(musician.getName());
         mDescriptionTextView.setText(musician.getDescription());
         mLinkTextView.setText(musician.getLink());
@@ -102,17 +106,20 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mTracksCountTextView.setText(String.format(getResources().getString(R.string.str_tracks_count), Integer.toString(musician.getTracksCount())));
         mAlbumsCountTextView.setText(String.format(getResources().getString(R.string.str_albums_count), Integer.toString(musician.getAlbumsCount())));
 
+        startProgressAnimation();
+
         Glide.with(this)
             .load(musician.getCovers().get(Musician.COVER_BIG))
             .listener(new RequestListener<String, GlideDrawable>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    // TODO: handle error
                     return false;
                 }
 
                 @Override
                 public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    mProgressBar.setVisibility(View.GONE);
+                    stopProgressAnimation();
                     return false;
                 }
             })
@@ -124,13 +131,19 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     /* Internals */
     // --------------------------------------------------------------------------------------------
     private void initView() {
+        if (ViewUtils.isLargeScreen(this)) {
+            supportRequestWindowFeature(Window.FEATURE_NO_TITLE);  // removes title from Activity as Dialog
+        }
         setContentView(R.layout.activity_music_details);
         ButterKnife.bind(this);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);  // disabled on tablets
     }
 
     private void initToolbar() {
-        mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
-        mCollapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        if (mCollapsingToolbar != null) {
+            mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+            mCollapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        }
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,5 +202,19 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         DrawableCompat.unwrap(mStrokeStar);
         DrawableCompat.unwrap(mHalfStar);
         DrawableCompat.unwrap(mFullStar);
+    }
+
+    /* Misc */
+    // --------------------------------------------------------------------------------------------
+    private void startProgressAnimation() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mTopOverlayView.setVisibility(View.INVISIBLE);
+        mBottomOverlayView.setVisibility(View.INVISIBLE);
+    }
+
+    private void stopProgressAnimation() {
+        mProgressBar.setVisibility(View.GONE);
+        mTopOverlayView.setVisibility(View.VISIBLE);
+        mBottomOverlayView.setVisibility(View.VISIBLE);
     }
 }
