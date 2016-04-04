@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.music.MusicListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?colorPrimary"
+                app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+                app:titleTextColor="@android:color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/toolbar_dropshadow"
+                android:fitsSystemWindows="true" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CardContent">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                    android:text="@string/str_coefficient" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/iv_star_1"
+                                        android:layout_width="@dimen/star_size"
+                                        android:layout_height="@dimen/star_size"
+                                        android:src="@drawable/ic_star_border_black_24dp"/>
+
+                                    <ImageView
+                                        android:id="@+id/iv_star_2"
+                                        android:layout_width="@dimen/star_size"
+                                        android:layout_height="@dimen/star_size"
+                                        android:layout_marginLeft="4dp"
+                                        android:src="@drawable/ic_star_border_black_24dp"/>
+
+                                    <ImageView
+                                        android:id="@+id/iv_star_3"
+                                        android:layout_width="@dimen/star_size"
+                                        android:layout_height="@dimen/star_size"
+                                        android:layout_marginLeft="4dp"
+                                        android:src="@drawable/ic_star_border_black_24dp"/>
+
+                                    <ImageView
+                                        android:id="@+id/iv_star_4"
+                                        android:layout_width="@dimen/star_size"
+                                        android:layout_height="@dimen/star_size"
+                                        android:layout_marginLeft="4dp"
+                                        android:src="@drawable/ic_star_border_black_24dp"/>
+
+                                    <ImageView
+                                        android:id="@+id/iv_star_5"
+                                        android:layout_width="@dimen/star_size"
+                                        android:layout_height="@dimen/star_size"
+                                        android:layout_marginLeft="4dp"
+                                        android:src="@drawable/ic_star_border_black_24dp"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tv_link"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:autoLink="web" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CardContent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:text="@string/str_title_details" />
+
+                            <TextView
+                                android:id="@+id/tv_desription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CardContent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:text="@string/str_genres" />
+
+                            <TextView
+                                android:id="@+id/tv_genres"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_tracks_count"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_albums_count"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fitsSystemWindows="true">
+
+            <include layout="@layout/large_image_gradient" />
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>
