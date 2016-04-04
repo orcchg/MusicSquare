@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
+import com.orcchg.musicsquare.util.MusicianUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
 
     public static class MusiciansViewHolder extends RecyclerView.ViewHolder {
         private View mView;
+        private View mGridItemView;  // only on large screens
         @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
         @Bind(R.id.iv_cover) ImageView mIconView;
         @Bind(R.id.tv_musician_title) TextView mTitleView;
@@ -40,6 +42,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         public MusiciansViewHolder(View view) {
             super(view);
             mView = view;
+            mGridItemView = view.findViewById(R.id.fl_grid_item);
             ButterKnife.bind(this, view);
         }
     }
@@ -63,10 +66,19 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = MusicDetailsActivity.getIntent(context, musician);
-                context.startActivity(intent);
+                MusicianUtils.openDetailsScreen(context, musician);
             }
         });
+
+        if (holder.mGridItemView != null) {
+            holder.mGridItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // this listener is necessary in order to enable foreground to show
+                    MusicianUtils.openDetailsScreen(context, musician);
+                }
+            });
+        }
 
         holder.mTitleView.setText(musician.getName());
 
