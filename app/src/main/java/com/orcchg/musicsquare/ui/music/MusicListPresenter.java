@@ -32,6 +32,7 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
 
     void loadMusicians() {
         checkViewAttached();
+        getMvpView().showLoading();
         mSubscription = mDataManager.getMusicians()
                 .subscribe(new Observer<List<Musician>>() {
                     @Override
@@ -39,7 +40,7 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e("Network error: " + e);
+                        Timber.e("Data error: " + e);
                         getMvpView().showError();
                     }
 
@@ -50,7 +51,9 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
                 });
     }
 
-    private void onMusiciansLoaded(List<Musician> musician) {
-        getMvpView().showMusicList(musician);
+    private void onMusiciansLoaded(List<Musician> musicians) {
+        mDataManager.getDatabase().addMusicians(musicians);
+        mDataManager.invalidateCache(false);
+        getMvpView().showMusicList(musicians);
     }
 }

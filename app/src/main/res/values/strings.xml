@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MusicSquare</string>
 
+    <string name="error_text">Data error</string>
+
     <string name="str_musicians_list">Musicians</string>
     <string name="str_title_details">Details</string>
     <string name="str_coefficient">Grade</string>

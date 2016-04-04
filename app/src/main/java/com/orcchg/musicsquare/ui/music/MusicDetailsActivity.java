@@ -2,7 +2,6 @@ package com.orcchg.musicsquare.ui.music;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,9 +22,8 @@ import com.bumptech.glide.request.target.Target;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
-import com.orcchg.musicsquare.util.MusicUtils;
+import com.orcchg.musicsquare.util.MusicianUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +133,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     }
 
     private void setGrade(@NonNull Musician musician) {
-        int grade = MusicUtils.calculateGrade(musician);
+        int grade = MusicianUtils.calculateGrade(musician);
         Timber.d("Grade of " + musician.getName() + " is: " + grade);
 
         int quotient = grade / 2;

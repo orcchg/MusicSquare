@@ -2,6 +2,7 @@ package com.orcchg.musicsquare.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -17,14 +18,75 @@ public class Musician implements Parcelable {
     public static final String COVER_BIG = "big";
     public static final String COVER_SMALL = "small";
 
-    @SerializedName("id") private long mId;
-    @SerializedName("name") private String mName;
-    @SerializedName("genres") private List<String> mGenres;
-    @SerializedName("tracks") private int mTracksCount;
-    @SerializedName("albums") private int mAlbumsCount;
-    @SerializedName("link") private String mLink;
-    @SerializedName("description") private String mDescription;
-    @SerializedName("cover") private Map<String, String> mCovers;
+    @SerializedName("id") private final long mId;
+    @SerializedName("name") private final String mName;
+    @SerializedName("genres") private final List<String> mGenres;
+    @SerializedName("tracks") private final int mTracksCount;
+    @SerializedName("albums") private final int mAlbumsCount;
+    @SerializedName("link") private final String mLink;
+    @SerializedName("description") private final String mDescription;
+    @SerializedName("cover") private final Map<String, String> mCovers;
+
+    public Musician(Builder builder) {
+        mId = builder.mId;
+        mName = builder.mName;
+        mGenres = builder.mGenres;
+        mTracksCount = builder.mTracksCount;
+        mAlbumsCount = builder.mAlbumsCount;
+        mLink = builder.mLink;
+        mDescription = builder.mDescription;
+        mCovers = builder.mCovers;
+    }
+
+    public static class Builder {
+        private final long mId;
+        private final String mName;
+        private List<String> mGenres = new ArrayList<>();
+        private int mTracksCount;
+        private int mAlbumsCount;
+        private String mLink = "";
+        private String mDescription = "";
+        private Map<String, String> mCovers = new HashMap<>();
+
+        public Builder(long id, @NonNull String name) {
+            mId = id;
+            mName = name;
+        }
+
+        public Builder setGenres(@NonNull List<String> genres) {
+            mGenres = genres;
+            return this;
+        }
+
+        public Builder setTracksCount(int count) {
+            mTracksCount = count;
+            return this;
+        }
+
+        public Builder setAlbumsCount(int count) {
+            mAlbumsCount = count;
+            return this;
+        }
+
+        public Builder setLink(@NonNull String link) {
+            mLink = link;
+            return this;
+        }
+
+        public Builder setDescription(@NonNull String description) {
+            mDescription = description;
+            return this;
+        }
+
+        public Builder setCovers(@NonNull Map<String, String> covers) {
+            mCovers = covers;
+            return this;
+        }
+
+        public Musician build() {
+            return new Musician(this);
+        }
+    }
 
     /* Getters */
     // --------------------------------------------------------------------------------------------

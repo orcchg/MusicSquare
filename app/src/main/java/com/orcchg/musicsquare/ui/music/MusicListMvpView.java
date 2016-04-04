@@ -8,5 +8,6 @@ import java.util.List;
 public interface MusicListMvpView extends MvpView {
 
     void showMusicList(List<Musician> musician);
+    void showLoading();
     void showError();
 }

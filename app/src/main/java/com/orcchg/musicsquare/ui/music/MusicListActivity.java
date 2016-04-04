@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
@@ -17,7 +18,10 @@ import butterknife.ButterKnife;
 public class MusicListActivity extends BaseActivity<MusicListPresenter> implements MusicListMvpView {
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.rl_toolbar_dropshadow) View mDropshadowView;
     @Bind(R.id.rv_musician_list) RecyclerView mMusiciansList;
+    @Bind(R.id.loading_view) View mLoadingView;
+    @Bind(R.id.error_view) View mErrorView;
 
     private MusiciansAdapter mMusiciansAdapter;
 
@@ -45,12 +49,27 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
     // --------------------------------------------------------------------------------------------
     @Override
     public void showMusicList(List<Musician> musician) {
+        mLoadingView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+        mDropshadowView.setVisibility(View.VISIBLE);
+        mMusiciansList.setVisibility(View.VISIBLE);
         mMusiciansAdapter.setMusicians(musician);  // TODO: set empty view
     }
 
     @Override
-    public void showError() {
+    public void showLoading() {
+        mMusiciansList.setVisibility(View.GONE);
+        mLoadingView.setVisibility(View.VISIBLE);
+        mErrorView.setVisibility(View.GONE);
+        mDropshadowView.setVisibility(View.INVISIBLE);  // don't overlap with progress bar
+    }
 
+    @Override
+    public void showError() {
+        mMusiciansList.setVisibility(View.GONE);
+        mLoadingView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mDropshadowView.setVisibility(View.VISIBLE);
     }
 
     /* Internals */
