@@ -1,4 +1,4 @@
-package com.orcchg.musicsquare.model;
+package com.orcchg.musicsquare.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Model of musician item in the data response.
  */
-public class Music {
+public class Musician {
     @SerializedName("id") private long mId;
     @SerializedName("name") private String mName;
     @SerializedName("genres") private List<String> mGenres;

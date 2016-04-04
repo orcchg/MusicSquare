@@ -7,6 +7,5 @@ package com.orcchg.musicsquare.ui.base;
 public interface Presenter<V extends MvpView> {
 
     void attachView(V mvpView);
-
     void detachView();
 }

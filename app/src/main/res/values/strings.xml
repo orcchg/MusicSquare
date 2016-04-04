@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MusicSquare</string>
+
+    <string name="str_musicians_list">Musicians</string>
 </resources>
