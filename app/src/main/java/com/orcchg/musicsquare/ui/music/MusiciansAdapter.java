@@ -34,7 +34,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
     public static class MusiciansViewHolder extends RecyclerView.ViewHolder {
         private View mView;
         @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
-        @Bind(R.id.iv_musician_icon) ImageView mIconView;
+        @Bind(R.id.iv_cover) ImageView mIconView;
         @Bind(R.id.tv_musician_title) TextView mTitleView;
 
         public MusiciansViewHolder(View view) {

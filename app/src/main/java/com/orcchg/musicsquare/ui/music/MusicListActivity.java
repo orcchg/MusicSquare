@@ -1,6 +1,7 @@
 package com.orcchg.musicsquare.ui.music;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,8 @@ import android.view.View;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
+import com.orcchg.musicsquare.util.GridItemDecorator;
+import com.orcchg.musicsquare.util.ViewUtility;
 
 import java.util.List;
 
@@ -78,8 +81,14 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
         setContentView(R.layout.activity_music_list);
         ButterKnife.bind(this);
 
+        if (ViewUtility.isLargeScreen(this)) {
+            mMusiciansList.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.grid_span)));
+            mMusiciansList.addItemDecoration(new GridItemDecorator(this, (R.dimen.grid_card_spacing)));
+        } else {
+            mMusiciansList.setLayoutManager(new LinearLayoutManager(this));
+        }
+
         mMusiciansAdapter = new MusiciansAdapter();
-        mMusiciansList.setLayoutManager(new LinearLayoutManager(this));
         mMusiciansList.setAdapter(mMusiciansAdapter);
     }
 

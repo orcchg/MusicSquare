@@ -25,7 +25,7 @@ import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
 import com.orcchg.musicsquare.util.MusicianUtils;
-import com.orcchg.musicsquare.util.ViewUtils;
+import com.orcchg.musicsquare.util.ViewUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     /* Internals */
     // --------------------------------------------------------------------------------------------
     private void initView() {
-        if (ViewUtils.isLargeScreen(this)) {
+        if (ViewUtility.isLargeScreen(this)) {
             supportRequestWindowFeature(Window.FEATURE_NO_TITLE);  // removes title from Activity as Dialog
         }
         setContentView(R.layout.activity_music_details);
