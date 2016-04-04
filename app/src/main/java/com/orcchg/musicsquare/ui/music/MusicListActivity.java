@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
@@ -25,6 +26,7 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
     @Bind(R.id.rv_musician_list) RecyclerView mMusiciansList;
     @Bind(R.id.loading_view) View mLoadingView;
     @Bind(R.id.error_view) View mErrorView;
+    @Bind(R.id.btn_retry) Button mErrorButton;
 
     private MusiciansAdapter mMusiciansAdapter;
 
@@ -90,6 +92,13 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
 
         mMusiciansAdapter = new MusiciansAdapter();
         mMusiciansList.setAdapter(mMusiciansAdapter);
+
+        mErrorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onRetry();
+            }
+        });
     }
 
     private void initToolbar() {

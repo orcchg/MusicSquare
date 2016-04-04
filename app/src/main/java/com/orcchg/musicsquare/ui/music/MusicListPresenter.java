@@ -51,6 +51,11 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
                 });
     }
 
+    void onRetry() {
+        mDataManager.invalidateCache(true);
+        loadMusicians();  // retry network request
+    }
+
     private void onMusiciansLoaded(List<Musician> musicians) {
         mDataManager.getDatabase().addMusicians(musicians);
         mDataManager.invalidateCache(false);

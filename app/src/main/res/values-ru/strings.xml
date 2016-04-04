@@ -2,6 +2,7 @@
     <string name="app_name">Музыканты</string>
 
     <string name="error_text">Ошибка данных</string>
+    <string name="error_btn_label">Повторить</string>
 
     <string name="str_musicians_list">Музыканты</string>
     <string name="str_title_details">Описание</string>
