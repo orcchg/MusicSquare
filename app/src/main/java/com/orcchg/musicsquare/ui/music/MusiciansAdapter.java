@@ -1,5 +1,7 @@
 package com.orcchg.musicsquare.ui.music;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +26,12 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
     private List<Musician> mMusicians;
 
     public static class MusiciansViewHolder extends RecyclerView.ViewHolder {
+        private View mView;
         @Bind(R.id.tv_musician_title) TextView mTitleView;
 
         public MusiciansViewHolder(View view) {
             super(view);
+            mView = view;
             ButterKnife.bind(this, view);
         }
     }
@@ -45,8 +49,16 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
 
     @Override
     public void onBindViewHolder(MusiciansViewHolder holder, int position) {
-        Musician item = mMusicians.get(position);
-        holder.mTitleView.setText(item.getName());
+        final Musician musician = mMusicians.get(position);
+        holder.mTitleView.setText(musician.getName());
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = MusicDetailsActivity.getIntent(context, musician);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
