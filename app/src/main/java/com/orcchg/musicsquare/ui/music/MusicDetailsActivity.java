@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mToolbar.setTitle(musician.getName());
         mDescriptionTextView.setText(musician.getDescription());
         mLinkTextView.setText(musician.getLink());
+        mLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         Glide.with(this)
             .load(musician.getCovers().get(Musician.COVER_BIG))
