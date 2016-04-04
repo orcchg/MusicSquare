@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MusicSquare</string>
 
+    <string name="empty_data">Data is empty</string>
     <string name="error_text">Data error</string>
     <string name="error_btn_label">Retry</string>
 

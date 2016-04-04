@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Музыканты</string>
 
+    <string name="empty_data">Нет данных</string>
     <string name="error_text">Ошибка данных</string>
     <string name="error_btn_label">Повторить</string>
 

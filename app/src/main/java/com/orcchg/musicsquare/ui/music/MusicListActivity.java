@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
@@ -24,6 +25,7 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.rl_toolbar_dropshadow) View mDropshadowView;
     @Bind(R.id.rv_musician_list) RecyclerView mMusiciansList;
+    @Bind(R.id.empty_view) View mEmptyView;
     @Bind(R.id.loading_view) View mLoadingView;
     @Bind(R.id.error_view) View mErrorView;
     @Bind(R.id.btn_retry) Button mErrorButton;
@@ -57,13 +59,19 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
         mDropshadowView.setVisibility(View.VISIBLE);
-        mMusiciansList.setVisibility(View.VISIBLE);
-        mMusiciansAdapter.setMusicians(musician);  // TODO: set empty view
+
+        if (musician == null || musician.isEmpty()) {
+            mEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            mMusiciansList.setVisibility(View.VISIBLE);
+            mMusiciansAdapter.setMusicians(musician);
+        }
     }
 
     @Override
     public void showLoading() {
         mMusiciansList.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.VISIBLE);
         mErrorView.setVisibility(View.GONE);
         mDropshadowView.setVisibility(View.INVISIBLE);  // don't overlap with progress bar
@@ -72,6 +80,7 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
     @Override
     public void showError() {
         mMusiciansList.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.VISIBLE);
         mDropshadowView.setVisibility(View.VISIBLE);
