@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +41,9 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     @Bind(R.id.iv_cover) ImageView mCoverImageView;
     @Bind(R.id.tv_desription) TextView mDescriptionTextView;
     @Bind(R.id.tv_link) TextView mLinkTextView;
+    @Bind(R.id.tv_genres) TextView mGenresTextView;
+    @Bind(R.id.tv_tracks_count) TextView mTracksCountTextView;
+    @Bind(R.id.tv_albums_count) TextView mAlbumsCountTextView;
 
     @Bind(R.id.iv_star_1) ImageView mStarView_1;
     @Bind(R.id.iv_star_2) ImageView mStarView_2;
@@ -94,6 +98,9 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mDescriptionTextView.setText(musician.getDescription());
         mLinkTextView.setText(musician.getLink());
         mLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        mGenresTextView.setText(TextUtils.join(", ", musician.getGenres()));
+        mTracksCountTextView.setText(String.format(getResources().getString(R.string.str_tracks_count), Integer.toString(musician.getTracksCount())));
+        mAlbumsCountTextView.setText(String.format(getResources().getString(R.string.str_albums_count), Integer.toString(musician.getAlbumsCount())));
 
         Glide.with(this)
             .load(musician.getCovers().get(Musician.COVER_BIG))

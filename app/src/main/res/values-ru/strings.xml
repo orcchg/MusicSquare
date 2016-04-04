@@ -5,5 +5,8 @@
 
     <string name="str_musicians_list">Музыканты</string>
     <string name="str_title_details">Описание</string>
-    <string name="str_coefficient">Оценка</string>
+    <string name="str_coefficient">Оценка: </string>
+    <string name="str_genres">Жанры</string>
+    <string name="str_tracks_count">Число треков: %s</string>
+    <string name="str_albums_count">Число альбомов: %s</string>
 </resources>
