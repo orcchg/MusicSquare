@@ -1,7 +1,9 @@
 package com.orcchg.musicsquare.data;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
+import com.orcchg.musicsquare.data.local.ByIdMusiciansSpecification;
 import com.orcchg.musicsquare.data.local.MusiciansDatabase;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.data.remote.RestAdapter;
@@ -43,7 +45,7 @@ public class DataManager {
     }
 
     /**
-     * Get a list of {@link Musician} items. Data could be fetched either from remote
+     * Get a list of all {@link Musician} items. Data could be fetched either from remote
      * or from a local storage {@link MusiciansDatabase}. This is done transparently for user,
      */
     public Observable<List<Musician>> getMusicians() {
@@ -60,7 +62,20 @@ public class DataManager {
                     return Observable.just(musicians);
                 }
             }).subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread());
+              .observeOn(AndroidSchedulers.mainThread());
         }
+    }
+
+    /**
+     * Get one {@link Musician} item by it's id. Returns a list with just a single item.
+     */
+    public Observable<List<Musician>> getMusician(long id) {
+        return mDatabase.queryMusicians(new ByIdMusiciansSpecification(id)).flatMap(new Func1<List<Musician>, Observable<List<Musician>>>() {
+            @Override
+            public Observable<List<Musician>> call(List<Musician> musicians) {
+                return Observable.just(musicians);
+            }
+        }).subscribeOn(Schedulers.computation())
+          .observeOn(AndroidSchedulers.mainThread());
     }
 }

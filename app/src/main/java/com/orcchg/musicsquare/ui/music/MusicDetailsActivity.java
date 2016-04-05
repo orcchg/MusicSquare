@@ -21,7 +21,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.orcchg.musicsquare.MusicSquareApplication;
 import com.orcchg.musicsquare.R;
+import com.orcchg.musicsquare.data.DataManager;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
 import com.orcchg.musicsquare.util.ImageTransform;
@@ -64,12 +66,13 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
 
     @Override
     protected MusicDetailsPresenter createPresenter() {
-        return new MusicDetailsPresenter();
+        DataManager dataManager = ((MusicSquareApplication) getApplication()).getDataManager();
+        return new MusicDetailsPresenter(dataManager);
     }
 
-    public static Intent getIntent(Context context, @NonNull Musician musician) {
+    public static Intent getIntent(Context context, long musicianId) {
         Intent intent = new Intent(context, MusicDetailsActivity.class);
-        intent.putExtra(MusicDetailsPresenter.EXTRA_MUSICIAN, musician);
+        intent.putExtra(MusicDetailsPresenter.EXTRA_MUSICIAN_ID, musicianId);
         return intent;
     }
 
@@ -224,7 +227,8 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mCoverErrorTextView.setVisibility(View.GONE);
     }
 
-    private void showError() {
+    @Override
+    public void showError() {
         mProgressBar.setVisibility(View.GONE);
         mTopOverlayView.setVisibility(View.INVISIBLE);
         mBottomOverlayView.setVisibility(View.INVISIBLE);

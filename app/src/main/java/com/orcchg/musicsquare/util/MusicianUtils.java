@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.music.MusicDetailsActivity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +15,13 @@ import java.util.Map;
 
 public class MusicianUtils {
 
+    public static final long BAD_MUSICIAN_ID = -1;
+
     public static final String DELIMITER = ";";
     public static final String MAP_DELIMITER = "=";
 
-    public static void openDetailsScreen(Context context, @NonNull Musician musician) {
-        Intent intent = MusicDetailsActivity.getIntent(context, musician);
+    public static void openDetailsScreen(Context context, long musicianId) {
+        Intent intent = MusicDetailsActivity.getIntent(context, musicianId);
         context.startActivity(intent);
     }
 

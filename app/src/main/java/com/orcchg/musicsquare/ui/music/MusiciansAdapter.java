@@ -27,6 +27,9 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 /**
  * Adapter for {@link android.support.v7.widget.RecyclerView}
  * of {@link com.orcchg.musicsquare.data.model.Musician} items.
+ *
+ * Fetches data from {@link com.orcchg.musicsquare.data.local.MusiciansDatabase}
+ * using the acceleration trick {@see https://habrahabr.ru/post/154931/}.
  */
 public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.MusiciansViewHolder> {
 
@@ -66,7 +69,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MusicianUtils.openDetailsScreen(context, musician);
+                MusicianUtils.openDetailsScreen(context, musician.getId());
             }
         });
 
@@ -75,7 +78,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
                 @Override
                 public void onClick(View v) {
                     // this listener is necessary in order to enable foreground to show
-                    MusicianUtils.openDetailsScreen(context, musician);
+                    MusicianUtils.openDetailsScreen(context, musician.getId());
                 }
             });
         }
