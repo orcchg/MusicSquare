@@ -43,7 +43,7 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e("Data error: " + e);
+                        Timber.e("Data error: %s", e.toString());
                         getMvpView().showError();
                     }
 

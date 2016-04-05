@@ -158,7 +158,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
 
     private void setGrade(@NonNull Musician musician) {
         int grade = MusicianUtils.calculateGrade(musician);
-        Timber.d("Grade of " + musician.getName() + " is: " + grade);
+        Timber.d("Grade of %s is %s", musician.getName(), grade);
 
         int quotient = grade / 2;
         int residual = grade % 2;

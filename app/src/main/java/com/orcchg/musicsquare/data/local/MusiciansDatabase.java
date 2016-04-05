@@ -160,7 +160,7 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
                 try {
                     subscriber.onNext(function.call());
                 } catch (Exception e) {
-                    Timber.e("Error reading from the database", e);
+                    Timber.e("Error reading from the database: %s", e.toString());
                 }
             }
         });
