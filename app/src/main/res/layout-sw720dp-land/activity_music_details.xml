@@ -27,30 +27,34 @@
                 app:navigationIcon="@drawable/ic_close_white_24dp"
                 app:titleTextColor="@android:color/white" />
 
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/toolbar_dropshadow"
-                android:fitsSystemWindows="true" />
+                android:layout_height="wrap_content">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <LinearLayout
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="16dp">
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <include layout="@layout/card_stars" />
-                    <include layout="@layout/card_info" />
-                    <include layout="@layout/card_brief" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingTop="16dp">
 
-                </LinearLayout>
-            </ScrollView>
+                        <include layout="@layout/card_stars" />
+                        <include layout="@layout/card_info" />
+                        <include layout="@layout/card_brief" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/toolbar_dropshadow" />
+            </FrameLayout>
         </LinearLayout>
 
         <FrameLayout
