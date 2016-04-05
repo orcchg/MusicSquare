@@ -67,7 +67,8 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     @Override
     protected MusicDetailsPresenter createPresenter() {
         DataManager dataManager = ((MusicSquareApplication) getApplication()).getDataManager();
-        return new MusicDetailsPresenter(dataManager);
+        long musicianId = getIntent().getLongExtra(MusicDetailsPresenter.EXTRA_MUSICIAN_ID, MusicianUtils.BAD_MUSICIAN_ID);
+        return new MusicDetailsPresenter(dataManager, musicianId);
     }
 
     public static Intent getIntent(Context context, long musicianId) {

@@ -8,9 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
+import com.orcchg.musicsquare.MusicSquareApplication;
 import com.orcchg.musicsquare.R;
+import com.orcchg.musicsquare.data.DataManager;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BaseActivity;
 import com.orcchg.musicsquare.util.GridItemDecorator;
@@ -35,7 +36,8 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
 
     @Override
     protected MusicListPresenter createPresenter() {
-        return new MusicListPresenter();
+        DataManager dataManager = ((MusicSquareApplication) getApplication()).getDataManager();
+        return new MusicListPresenter(dataManager);
     }
 
     /* Lifecycle */

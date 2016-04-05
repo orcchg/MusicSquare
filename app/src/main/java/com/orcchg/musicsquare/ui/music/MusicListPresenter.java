@@ -2,9 +2,9 @@ package com.orcchg.musicsquare.ui.music;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
-import com.orcchg.musicsquare.MusicSquareApplication;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.DataManager;
 import com.orcchg.musicsquare.data.model.Musician;
@@ -18,13 +18,11 @@ import timber.log.Timber;
 
 public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
 
-    private DataManager mDataManager;
+    private final DataManager mDataManager;
     private Subscription mSubscription;
 
-    @Override
-    public void attachView(MusicListMvpView view) {
-        super.attachView(view);
-        mDataManager = ((MusicSquareApplication) ((Activity) view).getApplication()).getDataManager();
+    public MusicListPresenter(@NonNull DataManager dataManager) {
+        mDataManager = dataManager;
     }
 
     @Override

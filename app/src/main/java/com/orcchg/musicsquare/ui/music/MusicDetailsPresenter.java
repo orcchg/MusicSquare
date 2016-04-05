@@ -1,12 +1,10 @@
 package com.orcchg.musicsquare.ui.music;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.orcchg.musicsquare.data.DataManager;
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.ui.base.BasePresenter;
-import com.orcchg.musicsquare.util.MusicianUtils;
 
 import java.util.List;
 
@@ -17,18 +15,13 @@ import timber.log.Timber;
 public class MusicDetailsPresenter extends BasePresenter<MusicDetailsMvpView> {
     static final String EXTRA_MUSICIAN_ID = "extra_musician_id";
 
-    private long mMusicianId;
     private final DataManager mDataManager;
+    private final long mMusicianId;
     private Subscription mSubscription;
 
-    MusicDetailsPresenter(@NonNull DataManager dataManager) {
+    MusicDetailsPresenter(@NonNull DataManager dataManager, long musicianId) {
         mDataManager = dataManager;
-    }
-
-    @Override
-    public void attachView(MusicDetailsMvpView mvpView) {
-        super.attachView(mvpView);
-        mMusicianId = ((Activity) mvpView).getIntent().getLongExtra(EXTRA_MUSICIAN_ID, MusicianUtils.BAD_MUSICIAN_ID);
+        mMusicianId = musicianId;
     }
 
     @Override
