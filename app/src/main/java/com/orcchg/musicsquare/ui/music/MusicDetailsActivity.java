@@ -45,7 +45,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
     @Bind(R.id.tv_cover_error) TextView mCoverErrorTextView;
     @Bind(R.id.top_overlay) View mTopOverlayView;
     @Bind(R.id.bottom_overlay) View mBottomOverlayView;
-    @Bind(R.id.tv_desription) TextView mDescriptionTextView;
+    @Bind(R.id.tv_description) TextView mDescriptionTextView;
     @Bind(R.id.tv_link) TextView mLinkTextView;
     @Bind(R.id.tv_genres) TextView mGenresTextView;
     @Bind(R.id.tv_tracks_count) TextView mTracksCountTextView;

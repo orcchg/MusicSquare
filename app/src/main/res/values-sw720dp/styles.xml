@@ -12,4 +12,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextBlock" parent="TextView" />
+
+    <style name="TextBlock.Title">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="TextBlock.Description">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    </style>
+
 </resources>
