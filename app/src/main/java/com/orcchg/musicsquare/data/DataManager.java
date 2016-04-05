@@ -1,7 +1,6 @@
 package com.orcchg.musicsquare.data;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.orcchg.musicsquare.data.local.ByIdMusiciansSpecification;
 import com.orcchg.musicsquare.data.local.MusiciansDatabase;
@@ -11,8 +10,8 @@ import com.orcchg.musicsquare.data.remote.RestAdapter;
 import java.util.List;
 
 import rx.Observable;
+import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -32,10 +31,6 @@ public class DataManager {
         mDatabase = new MusiciansDatabase(context);
     }
 
-    public MusiciansDatabase getDatabase() {
-        return mDatabase;
-    }
-
     /**
      * Force {@link DataManager} to fetch data from remote next time.
      * @param flag true to force fetching from remote.
@@ -53,16 +48,29 @@ public class DataManager {
             Timber.d("Cache is empty - make HTTP request");
             return mRestAdapter.getMusicians("artists.json")
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread());
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnEach(new Observer<List<Musician>>() {
+                        @Override
+                        public void onCompleted() {
+                            invalidateCache(false);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Timber.e("Data error: %s", e.toString());
+                        }
+
+                        @Override
+                        public void onNext(List<Musician> musicians) {
+                            mDatabase.addMusicians(musicians);
+                            onCompleted();
+                        }
+                    });
         } else {
             Timber.d("Cache contains actual data");
-            return mDatabase.getAllMusicians().flatMap(new Func1<List<Musician>, Observable<List<Musician>>>() {
-                @Override
-                public Observable<List<Musician>> call(List<Musician> musicians) {
-                    return Observable.just(musicians);
-                }
-            }).subscribeOn(Schedulers.computation())
-              .observeOn(AndroidSchedulers.mainThread());
+            return mDatabase.getAllMusicians()
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread());
         }
     }
 
@@ -70,12 +78,8 @@ public class DataManager {
      * Get one {@link Musician} item by it's id. Returns a list with just a single item.
      */
     public Observable<List<Musician>> getMusician(long id) {
-        return mDatabase.queryMusicians(new ByIdMusiciansSpecification(id)).flatMap(new Func1<List<Musician>, Observable<List<Musician>>>() {
-            @Override
-            public Observable<List<Musician>> call(List<Musician> musicians) {
-                return Observable.just(musicians);
-            }
-        }).subscribeOn(Schedulers.computation())
-          .observeOn(AndroidSchedulers.mainThread());
+        return mDatabase.queryMusicians(new ByIdMusiciansSpecification(id))
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

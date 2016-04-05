@@ -50,8 +50,8 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
                     }
 
                     @Override
-                    public void onNext(List<Musician> musician) {
-                        onMusiciansLoaded(musician);
+                    public void onNext(List<Musician> musicians) {
+                        getMvpView().showMusicList(musicians);
                     }
                 });
     }
@@ -71,12 +71,5 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
                         dialog.dismiss();
                     }
                 }).show();
-    }
-
-    // ------------------------------------------
-    private void onMusiciansLoaded(List<Musician> musicians) {
-        mDataManager.getDatabase().addMusicians(musicians);
-        mDataManager.invalidateCache(false);
-        getMvpView().showMusicList(musicians);
     }
 }
