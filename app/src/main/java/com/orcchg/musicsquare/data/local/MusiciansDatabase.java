@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.text.TextUtils;
 
 import com.orcchg.musicsquare.data.model.Musician;
 import com.orcchg.musicsquare.util.MusicianUtils;
@@ -15,9 +14,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
-import rx.functions.Func1;
 import timber.log.Timber;
 
 /**
@@ -92,34 +89,8 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
     }
 
     @Override
-    public void removeMusicians(List<Musician> musicians) {
-        final List<Long> ids = new ArrayList<>();
-
-        Observable.just(musicians).flatMap(new Func1<List<Musician>, Observable<Musician>>() {
-            @Override
-            public Observable<Musician> call(List<Musician> musicians) {
-                return Observable.from(musicians);
-            }
-        }).map(new Func1<Musician, Long>() {
-            @Override
-            public Long call(Musician musician) {
-                return musician.getId();
-            }
-        }).subscribe(new Observer<Long>() {
-            @Override
-            public void onCompleted() {}
-
-            @Override
-            public void onError(Throwable e) {}
-
-            @Override
-            public void onNext(Long integer) {
-                ids.add(integer);
-            }
-        });
-
-        String args = TextUtils.join(", ", ids);
-        String statement = String.format(MusicContract.DELETE_STATEMENT, args);
+    public void removeMusicians(MusiciansSpecification specification) {
+        String statement = specification == null ? MusicContract.DELETE_ALL_STATEMENT : String.format(MusicContract.DELETE_STATEMENT, specification.getSelectionArgs());
 
         SQLiteDatabase db = getWritableDatabase();
 

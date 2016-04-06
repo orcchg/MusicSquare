@@ -11,9 +11,9 @@ import rx.Observable;
  */
 public interface MusiciansRepository {
 
-    void addMusicians(List<Musician> posts);
-    void updateMusicians(List<Musician> posts);
-    void removeMusicians(List<Musician> posts);
+    void addMusicians(List<Musician> musicians);
+    void updateMusicians(List<Musician> musicians);
+    void removeMusicians(MusiciansSpecification specification);
 
     Observable<List<Musician>> getAllMusicians();
     Observable<List<Musician>> queryMusicians(MusiciansSpecification specification);

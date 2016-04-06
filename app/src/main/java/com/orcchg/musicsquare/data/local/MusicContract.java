@@ -52,7 +52,8 @@ public class MusicContract {
                     MusiciansTable.COLUMN_NAME_COVERS + ") " +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 
+    static final String DELETE_ALL_STATEMENT = "DELETE FROM " + MusiciansTable.TABLE_NAME + ";";
+
     static final String DELETE_STATEMENT =
-            "DELETE FROM " + MusiciansTable.TABLE_NAME +
-                    " WHERE " + MusiciansTable.COLUMN_NAME_ID + " IN (%s);";
+            "DELETE FROM " + MusiciansTable.TABLE_NAME + " WHERE %s;";
 }
