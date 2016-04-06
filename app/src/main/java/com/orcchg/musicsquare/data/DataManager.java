@@ -1,7 +1,5 @@
 package com.orcchg.musicsquare.data;
 
-import android.content.Context;
-
 import com.orcchg.musicsquare.data.local.ByIdMusiciansSpecification;
 import com.orcchg.musicsquare.data.local.MusiciansDatabase;
 import com.orcchg.musicsquare.data.model.Musician;
@@ -26,9 +24,9 @@ public class DataManager {
 
     private boolean mInvalidateCache;
 
-    public DataManager(Context context) {
-        mRestAdapter = RestAdapter.Creator.create();
-        mDatabase = new MusiciansDatabase(context);
+    public DataManager(RestAdapter restAdapter, MusiciansDatabase database) {
+        mRestAdapter = restAdapter;
+        mDatabase = database;
     }
 
     /**

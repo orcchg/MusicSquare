@@ -3,6 +3,8 @@ package com.orcchg.musicsquare;
 import android.app.Application;
 
 import com.orcchg.musicsquare.data.DataManager;
+import com.orcchg.musicsquare.data.local.MusiciansDatabase;
+import com.orcchg.musicsquare.data.remote.RestAdapter;
 
 import timber.log.Timber;
 
@@ -15,7 +17,10 @@ public class MusicSquareApplication extends Application {
         super.onCreate();
         // TODO: exclude from release builds
         Timber.plant(new Timber.DebugTree());
-        mDataManager = new DataManager(getApplicationContext());
+
+        RestAdapter restAdapter = RestAdapter.Creator.create();
+        MusiciansDatabase database = new MusiciansDatabase(getApplicationContext());
+        mDataManager = new DataManager(restAdapter, database);
     }
 
     public DataManager getDataManager() {
