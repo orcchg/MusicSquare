@@ -97,16 +97,38 @@ public class Musician {
     public String getDescription() { return mDescription; }
     public Map<String, String> getCovers() { return mCovers; }
 
-    /* Setters */
+    /* Equals and hash code */
     // --------------------------------------------------------------------------------------------
-    /* XXX: just left here for convenience
-    public void setId(long mId) { this.mId = mId; }
-    public void setName(String mName) { this.mName = mName; }
-    public void setGenres(List<String> mGenres) { this.mGenres = mGenres; }
-    public void setTracksCount(int mTracksCount) { this.mTracksCount = mTracksCount; }
-    public void setAlbumsCount(int mAlbumsCount) { this.mAlbumsCount = mAlbumsCount; }
-    public void setLink(String mLink) { this.mLink = mLink; }
-    public void setDescription(String mDescription) { this.mDescription = mDescription; }
-    public void setCovers(Map<String, String> mCovers) { this.mCovers = mCovers; }
-    */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Musician musician = (Musician) o;
+
+        if (mId != musician.mId) return false;
+        if (mTracksCount != musician.mTracksCount) return false;
+        if (mAlbumsCount != musician.mAlbumsCount) return false;
+        if (mName != null ? !mName.equals(musician.mName) : musician.mName != null) return false;
+        if (mGenres != null ? !mGenres.equals(musician.mGenres) : musician.mGenres != null)
+            return false;
+        if (mLink != null ? !mLink.equals(musician.mLink) : musician.mLink != null) return false;
+        if (mDescription != null ? !mDescription.equals(musician.mDescription) : musician.mDescription != null)
+            return false;
+        return !(mCovers != null ? !mCovers.equals(musician.mCovers) : musician.mCovers != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (mId ^ (mId >>> 32));
+        result = 31 * result + (mName != null ? mName.hashCode() : 0);
+        result = 31 * result + (mGenres != null ? mGenres.hashCode() : 0);
+        result = 31 * result + mTracksCount;
+        result = 31 * result + mAlbumsCount;
+        result = 31 * result + (mLink != null ? mLink.hashCode() : 0);
+        result = 31 * result + (mDescription != null ? mDescription.hashCode() : 0);
+        result = 31 * result + (mCovers != null ? mCovers.hashCode() : 0);
+        return result;
+    }
 }
