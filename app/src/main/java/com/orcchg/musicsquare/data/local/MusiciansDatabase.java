@@ -52,6 +52,12 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
         return result;
     }
 
+    public void clear() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(MusicContract.CLEAR_TABLE_STATEMENT);
+        db.close();
+    }
+
     /* Repository operations */
     // --------------------------------------------------------------------------------------------
     @Override
@@ -81,6 +87,7 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
 
         db.setTransactionSuccessful();
         db.endTransaction();
+        db.close();
     }
 
     @Override
@@ -99,6 +106,7 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
         delete.execute();
         db.setTransactionSuccessful();
         db.endTransaction();
+        db.close();
     }
 
     @Override
@@ -110,17 +118,17 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
     public Observable<List<Musician>> queryMusicians(MusiciansSpecification specification) {
         final String statement = specification == null ? MusicContract.READ_ALL_STATEMENT : String.format(MusicContract.READ_STATEMENT, specification.getSelectionArgs());
 
-        final SQLiteDatabase db = getReadableDatabase();
-
         final Callable<List<Musician>> function = new Callable<List<Musician>>() {
             @Override
             public List<Musician> call() throws Exception {
+                final SQLiteDatabase db = getReadableDatabase();
                 Cursor cursor = db.rawQuery(statement, null);
                 List<Musician> musicians = new ArrayList<>();
                 while (cursor.moveToNext()) {
                     musicians.add(MusicianFactory.create(cursor));
                 }
                 cursor.close();
+                db.close();
                 return musicians;
             }
         };
