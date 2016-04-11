@@ -11,33 +11,33 @@
         android:id="@+id/iv_star_1"
         android:layout_width="@dimen/star_size"
         android:layout_height="@dimen/star_size"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_white_24dp"/>
 
     <ImageView
         android:id="@+id/iv_star_2"
         android:layout_width="@dimen/star_size"
         android:layout_height="@dimen/star_size"
         android:layout_marginLeft="4dp"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_white_24dp"/>
 
     <ImageView
         android:id="@+id/iv_star_3"
         android:layout_width="@dimen/star_size"
         android:layout_height="@dimen/star_size"
         android:layout_marginLeft="4dp"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_white_24dp"/>
 
     <ImageView
         android:id="@+id/iv_star_4"
         android:layout_width="@dimen/star_size"
         android:layout_height="@dimen/star_size"
         android:layout_marginLeft="4dp"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_white_24dp"/>
 
     <ImageView
         android:id="@+id/iv_star_5"
         android:layout_width="@dimen/star_size"
         android:layout_height="@dimen/star_size"
         android:layout_marginLeft="4dp"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_white_24dp"/>
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.orcchg.musicsquare.ui.music;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -187,9 +188,9 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
         mStarViews.add(mStarView_4);
         mStarViews.add(mStarView_5);
 
-        Drawable strokeStar = getResources().getDrawable(R.drawable.ic_star_border_black_24dp);
-        Drawable halfStar = getResources().getDrawable(R.drawable.ic_star_half_black_24dp);
-        Drawable fullStar = getResources().getDrawable(R.drawable.ic_star_black_24dp);
+        Drawable strokeStar = getResources().getDrawable(R.drawable.ic_star_border_white_24dp);
+        Drawable halfStar = getResources().getDrawable(R.drawable.ic_star_half_white_24dp);
+        Drawable fullStar = getResources().getDrawable(R.drawable.ic_star_white_24dp);
 
         mStrokeStar = DrawableCompat.wrap(strokeStar);
         mHalfStar = DrawableCompat.wrap(halfStar);
