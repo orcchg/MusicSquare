@@ -17,8 +17,8 @@ public class MusicianUtils {
 
     public static final long BAD_MUSICIAN_ID = -1;
 
-    public static final String DELIMITER = ";";
-    public static final String MAP_DELIMITER = "=";
+    private static final String DELIMITER = ";";
+    private static final String MAP_DELIMITER = "=";
 
     public static void openDetailsScreen(Context context, long musicianId) {
         Intent intent = MusicDetailsActivity.getIntent(context, musicianId);
@@ -31,8 +31,8 @@ public class MusicianUtils {
      * The more tracks and less albums a certain musician has the better
      * grade it has been given.
      *
-     * @param musician
-     * @return
+     * @param musician Input model
+     * @return grade of musician
      */
     public static int calculateGrade(@NonNull Musician musician) {
         float ratio = musician.getTracksCount() / (float) musician.getAlbumsCount();

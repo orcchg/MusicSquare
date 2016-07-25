@@ -15,8 +15,9 @@ public class MusicSquareApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // TODO: exclude from release builds
-        Timber.plant(new Timber.DebugTree());
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
 
         RestAdapter restAdapter = RestAdapter.Creator.create();
         MusiciansDatabase database = new MusiciansDatabase(getApplicationContext());

@@ -1,7 +1,6 @@
 package com.orcchg.musicsquare.ui.music;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
@@ -16,12 +15,12 @@ import rx.Observer;
 import rx.Subscription;
 import timber.log.Timber;
 
-public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
+class MusicListPresenter extends BasePresenter<MusicListMvpView> {
 
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
-    public MusicListPresenter(@NonNull DataManager dataManager) {
+    MusicListPresenter(@NonNull DataManager dataManager) {
         mDataManager = dataManager;
     }
 
@@ -63,11 +62,6 @@ public class MusicListPresenter extends BasePresenter<MusicListMvpView> {
         new AlertDialog.Builder((Activity) getMvpView())
                 .setTitle(R.string.str_about)
                 .setMessage(R.string.str_about_message)
-                .setPositiveButton(R.string.str_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setPositiveButton(R.string.str_ok, (dialog, which) -> dialog.dismiss()).show();
     }
 }

@@ -22,7 +22,7 @@ public interface RestAdapter {
 
     String ENDPOINT = "http://download.cdn.yandex.net/";
 
-    public static class Creator {
+    class Creator {
         public static RestAdapter create() {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

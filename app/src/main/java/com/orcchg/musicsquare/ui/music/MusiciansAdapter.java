@@ -1,7 +1,6 @@
 package com.orcchg.musicsquare.ui.music;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,18 +30,18 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
  * Fetches data from {@link com.orcchg.musicsquare.data.local.MusiciansDatabase}
  * using the acceleration trick {@see https://habrahabr.ru/post/154931/}.
  */
-public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.MusiciansViewHolder> {
+class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.MusiciansViewHolder> {
 
     private List<Musician> mMusicians;
 
-    public static class MusiciansViewHolder extends RecyclerView.ViewHolder {
+    static class MusiciansViewHolder extends RecyclerView.ViewHolder {
         private View mView;
         private View mGridItemView;  // only on large screens
         @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
         @Bind(R.id.iv_cover) ImageView mIconView;
         @Bind(R.id.tv_musician_title) TextView mTitleView;
 
-        public MusiciansViewHolder(View view) {
+        MusiciansViewHolder(View view) {
             super(view);
             mView = view;
             mGridItemView = view.findViewById(R.id.fl_grid_item);
@@ -50,15 +49,14 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         }
     }
 
-    public MusiciansAdapter() {
+    MusiciansAdapter() {
         mMusicians = new ArrayList<>();
     }
 
     @Override
     public MusiciansViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_musician, parent, false);
-        MusiciansViewHolder holder = new MusiciansViewHolder(view);
-        return holder;
+        return new MusiciansViewHolder(view);
     }
 
     @Override
@@ -66,21 +64,12 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         final Context context = holder.mView.getContext();
         final Musician musician = mMusicians.get(position);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MusicianUtils.openDetailsScreen(context, musician.getId());
-            }
-        });
+        holder.mView.setOnClickListener((view) -> MusicianUtils.openDetailsScreen(context, musician.getId()));
 
         if (holder.mGridItemView != null) {
-            holder.mGridItemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // this listener is necessary in order to enable foreground to show
-                    MusicianUtils.openDetailsScreen(context, musician.getId());
-                }
-            });
+            holder.mGridItemView.setOnClickListener((view) ->
+                // this listener is necessary in order to enable foreground to show
+                MusicianUtils.openDetailsScreen(context, musician.getId()));
         }
 
         holder.mTitleView.setText(musician.getName());
@@ -107,7 +96,7 @@ public class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.Musi
         return mMusicians.size();
     }
 
-    public void setMusicians(List<Musician> posts) {
+    void setMusicians(List<Musician> posts) {
         if (posts != null && !posts.isEmpty()) {
             mMusicians.clear();
             mMusicians.addAll(posts);

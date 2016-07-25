@@ -3,7 +3,6 @@ package com.orcchg.musicsquare.ui.music;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -41,7 +40,7 @@ import timber.log.Timber;
 
 public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> implements MusicDetailsMvpView {
 
-    CollapsingToolbarLayout mCollapsingToolbar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.pb_loading) CircularProgressBar mProgressBar;
     @Bind(R.id.iv_cover) ImageView mCoverImageView;
@@ -153,12 +152,7 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
             mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
             mCollapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
         }
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mToolbar.setNavigationOnClickListener((view) -> finish());
     }
 
     private void setGrade(@NonNull Musician musician) {

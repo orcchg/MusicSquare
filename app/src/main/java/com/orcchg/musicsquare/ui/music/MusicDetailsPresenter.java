@@ -12,7 +12,7 @@ import rx.Observer;
 import rx.Subscription;
 import timber.log.Timber;
 
-public class MusicDetailsPresenter extends BasePresenter<MusicDetailsMvpView> {
+class MusicDetailsPresenter extends BasePresenter<MusicDetailsMvpView> {
     static final String EXTRA_MUSICIAN_ID = "extra_musician_id";
 
     private final DataManager mDataManager;

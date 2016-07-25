@@ -3,7 +3,7 @@ package com.orcchg.musicsquare.data.local;
 /**
  * Represents the schema in the {@link MusiciansDatabase}.
  */
-public class MusicContract {
+class MusicContract {
 
     MusicContract() {
         // protect from accidental instantiation

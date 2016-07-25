@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import rx.Observable;
-import rx.Subscriber;
 import timber.log.Timber;
 
 /**
@@ -23,8 +22,8 @@ import timber.log.Timber;
  */
 public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepository {
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "com_orcchg_musicsquare_MusiciansDatabase.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "com_orcchg_musicsquare_MusiciansDatabase.db";
 
     public MusiciansDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -118,29 +117,23 @@ public class MusiciansDatabase extends SQLiteOpenHelper implements MusiciansRepo
     public Observable<List<Musician>> queryMusicians(MusiciansSpecification specification) {
         final String statement = specification == null ? MusicContract.READ_ALL_STATEMENT : String.format(MusicContract.READ_STATEMENT, specification.getSelectionArgs());
 
-        final Callable<List<Musician>> function = new Callable<List<Musician>>() {
-            @Override
-            public List<Musician> call() throws Exception {
-                final SQLiteDatabase db = getReadableDatabase();
-                Cursor cursor = db.rawQuery(statement, null);
-                List<Musician> musicians = new ArrayList<>();
-                while (cursor.moveToNext()) {
-                    musicians.add(MusicianFactory.create(cursor));
-                }
-                cursor.close();
-                db.close();
-                return musicians;
+        final Callable<List<Musician>> function = () -> {
+            final SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery(statement, null);
+            List<Musician> musicians = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                musicians.add(MusicianFactory.create(cursor));
             }
+            cursor.close();
+            db.close();
+            return musicians;
         };
 
-        return Observable.create(new Observable.OnSubscribe<List<Musician>>() {
-            @Override
-            public void call(Subscriber<? super List<Musician>> subscriber) {
-                try {
-                    subscriber.onNext(function.call());
-                } catch (Exception e) {
-                    Timber.e("Error reading from the database: %s", e.toString());
-                }
+        return Observable.create((subscriber) -> {
+            try {
+                subscriber.onNext(function.call());
+            } catch (Exception e) {
+                Timber.e("Error reading from the database: %s", e.toString());
             }
         });
     }
