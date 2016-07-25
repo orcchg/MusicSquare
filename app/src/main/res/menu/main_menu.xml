@@ -6,4 +6,10 @@
         android:id="@+id/about"
         android:title="@string/str_about"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/animation"
+        android:title="@string/str_animation"
+        android:checkable="true"
+        app:showAsAction="never"/>
 </menu>

@@ -1,6 +1,10 @@
 package com.orcchg.musicsquare.ui.music;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +18,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.orcchg.musicsquare.R;
 import com.orcchg.musicsquare.data.model.Musician;
-import com.orcchg.musicsquare.util.MusicianUtils;
+import com.orcchg.musicsquare.util.ViewUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,12 +68,12 @@ class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.MusiciansVi
         final Context context = holder.mView.getContext();
         final Musician musician = mMusicians.get(position);
 
-        holder.mView.setOnClickListener((view) -> MusicianUtils.openDetailsScreen(context, musician.getId()));
+        holder.mView.setOnClickListener((view) -> openDetailsScreen((Activity) context, musician.getId(), holder.mIconView));
 
         if (holder.mGridItemView != null) {
             holder.mGridItemView.setOnClickListener((view) ->
                 // this listener is necessary in order to enable foreground to show
-                MusicianUtils.openDetailsScreen(context, musician.getId()));
+                openDetailsScreen((Activity) context, musician.getId(), holder.mIconView));
         }
 
         holder.mTitleView.setText(musician.getName());
@@ -101,6 +105,19 @@ class MusiciansAdapter extends RecyclerView.Adapter<MusiciansAdapter.MusiciansVi
             mMusicians.clear();
             mMusicians.addAll(posts);
             notifyDataSetChanged();
+        }
+    }
+
+    /* Misc */
+    // ------------------------------------------------------------------------
+    private static void openDetailsScreen(Activity context, long musicianId, View view) {
+        Intent intent = MusicDetailsActivity.getIntent(context, musicianId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            ViewUtility.isImageTransitionEnabled()) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, view, "profile");
+            context.startActivity(intent, options.toBundle());
+        } else {
+            context.startActivity(intent);
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.orcchg.musicsquare.ui.music;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -111,11 +114,26 @@ public class MusicListActivity extends BaseActivity<MusicListPresenter> implemen
         mToolbar.setTitle(R.string.str_musicians_list);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         mToolbar.inflateMenu(R.menu.main_menu);
+        mToolbar.getMenu().findItem(R.id.animation).setChecked(ViewUtility.isImageTransitionEnabled());
         mToolbar.setOnMenuItemClickListener((item) -> {
-            if (item.getItemId() == R.id.about) {
-                mPresenter.onMenuItemAboutClicked();
+            switch (item.getItemId()) {
+                case R.id.about:
+                    mPresenter.onMenuItemAboutClicked();
+                    return true;
+                case R.id.animation:
+                    boolean checked = !ViewUtility.isImageTransitionEnabled();
+                    ViewUtility.enableImageTransition(checked);
+                    item.setChecked(checked);
+                    return true;
             }
             return false;
         });
+
+        Drawable overflowOriginal = mToolbar.getOverflowIcon();
+        if (overflowOriginal != null) {
+            Drawable overflow = DrawableCompat.wrap(overflowOriginal);
+            DrawableCompat.setTint(overflow, Color.WHITE);
+            mToolbar.setOverflowIcon(overflow);
+        }
     }
 }

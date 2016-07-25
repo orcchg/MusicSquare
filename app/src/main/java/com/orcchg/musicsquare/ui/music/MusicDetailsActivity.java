@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -152,7 +153,13 @@ public class MusicDetailsActivity extends BaseActivity<MusicDetailsPresenter> im
             mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
             mCollapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
         }
-        mToolbar.setNavigationOnClickListener((view) -> finish());
+        mToolbar.setNavigationOnClickListener((view) -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                supportFinishAfterTransition();
+            } else {
+                finish();
+            }
+        });
     }
 
     private void setGrade(@NonNull Musician musician) {

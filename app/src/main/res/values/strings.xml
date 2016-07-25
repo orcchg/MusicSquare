@@ -3,6 +3,7 @@
     <string name="str_ok">Accept</string>
     <string name="str_about">About</string>
     <string name="str_about_message">Author: Maxim (Orcchg) Alov\nContact: alovmax@yandex.ru\nWeb: orcchg.wordpress.com\nMusicSquare application for Yandex</string>
+    <string name="str_animation">Animation</string>
 
     <string name="empty_data">Data is empty</string>
     <string name="error_text">Data error</string>

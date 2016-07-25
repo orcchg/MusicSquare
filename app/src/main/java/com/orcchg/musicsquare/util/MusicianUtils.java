@@ -1,12 +1,9 @@
 package com.orcchg.musicsquare.util;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.orcchg.musicsquare.data.model.Musician;
-import com.orcchg.musicsquare.ui.music.MusicDetailsActivity;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,11 +16,6 @@ public class MusicianUtils {
 
     private static final String DELIMITER = ";";
     private static final String MAP_DELIMITER = "=";
-
-    public static void openDetailsScreen(Context context, long musicianId) {
-        Intent intent = MusicDetailsActivity.getIntent(context, musicianId);
-        context.startActivity(intent);
-    }
 
     /**
      * Calculates a grade of a given {@link Musician} as a ratio between
